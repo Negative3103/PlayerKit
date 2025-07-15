@@ -1,6 +1,6 @@
 import VLCKit
 
-protocol VLCPlayerWrapperDelegate: NSObject {
+public protocol VLCPlayerWrapperDelegate: NSObject {
     func playerStateChanged(_ newState: VLCMediaPlayerState)
     func playerTimeChanged(_ aNotification: Notification)
 }
