@@ -1,12 +1,17 @@
 import VLCKit
 
+protocol VLCPlayerWrapperDelegate: NSObject {
+    func playerStateChanged(_ newState: VLCMediaPlayerState)
+    func playerTimeChanged(_ aNotification: Notification)
+}
+
 public class VLCPlayerWrapper: NSObject, PlayerProtocol {
     public var player: VLCMediaPlayer
     private let playerView = VLCPlayerView()
     public var pipController: VLCPictureInPictureWindowControlling?
     private var drawableProxy: VLCPlayerDrawableProxy?
     private var lastPosition: Double?
-    
+    weak var delegate: VLCPlayerWrapperDelegate?
     public override init() {
         self.player = VLCMediaPlayer()
         super.init()
@@ -189,14 +194,11 @@ extension VLCPlayerWrapper: VLCMediaDelegate {
 // MARK: - VLCMediaPlayer Notification Handlers
 extension VLCPlayerWrapper: VLCMediaPlayerDelegate {
     public func mediaPlayerStateChanged(_ newState: VLCMediaPlayerState) {
-        if newState == .stopped {
-            DispatchQueue.main.async {
-                PlayerManager.shared.videoDidEnd()
-            }
-        }
+        delegate?.playerStateChanged(newState)
     }
     
     public func mediaPlayerTimeChanged(_ aNotification: Notification) {
+        delegate?.playerTimeChanged(aNotification)
     }
 }
 
