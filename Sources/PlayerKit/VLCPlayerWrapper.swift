@@ -11,7 +11,7 @@ public class VLCPlayerWrapper: NSObject, PlayerProtocol {
     public var pipController: VLCPictureInPictureWindowControlling?
     private var drawableProxy: VLCPlayerDrawableProxy?
     private var lastPosition: Double?
-    weak var delegate: VLCPlayerWrapperDelegate?
+    public weak var delegate: VLCPlayerWrapperDelegate?
     public override init() {
         self.player = VLCMediaPlayer()
         super.init()
