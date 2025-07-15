@@ -8,7 +8,7 @@
 import Foundation
 
 public struct TrackInfo {
-    let id: String
-    let name: String
-    let languageCode: String?
+    public let id: String
+    public let name: String
+    public let languageCode: String?
 }
